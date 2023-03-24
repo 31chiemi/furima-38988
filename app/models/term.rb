@@ -1,15 +1,9 @@
 class Term < ActiveHash::Base
   self.data = [
     { id: 1, name: '---' },
-    { id: 2, name: '' },
-    { id: 3, name: '' },
-    { id: 4, name: '' },
-    { id: 5, name: '' },
-    { id: 6, name: '' },
-    { id: 7, name: '' },
-    { id: 8, name: '' },
-    { id: 9, name: '' },
-    { id: 10, name: '' }
+    { id: 2, name: '1~2日で発送' },
+    { id: 3, name: '2~3日で発送' },
+    { id: 4, name: '4~7日で発送' }
   ]
 
   include ActiveHash::Associations

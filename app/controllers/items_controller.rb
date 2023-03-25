@@ -1,7 +1,10 @@
 class ItemsController < ApplicationController
-  def index
-    @items = Item.all
-  end
+  before_action :authenticate_user!, only: [:new]
+  # 出品時にログインしていない場合はログイン画面に推移する
+  
+  #def index
+    #@items = Item.all
+  #end
 
   def new
     @item = Item.new

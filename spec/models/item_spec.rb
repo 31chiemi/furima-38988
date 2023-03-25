@@ -31,35 +31,35 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Content can't be blank")
       end
 
-      it 'category_idが空では出品できない' do
-        @item.category_id = ''
+      it 'category_idが初期状態では出品できない' do
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category is not a number")
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
 
-      it 'condition_idが空では出品できない' do
-        @item.condition_id = ''
+      it 'condition_idが初期状態では出品できない' do
+        @item.condition_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Condition is not a number")
+        expect(@item.errors.full_messages).to include("Condition must be other than 1")
       end
 
-      it 'charge_idが空では出品できない' do
-        @item.charge_id = ''
+      it 'charge_idが初期状態では出品できない' do
+        @item.charge_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Charge is not a number")
+        expect(@item.errors.full_messages).to include("Charge must be other than 1")
       end
 
-      it 'Prefecture_idが空では出品できない' do
-        @item.prefecture_id = ''
+      it 'Prefecture_idが初期状態では出品できない' do
+        @item.prefecture_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture is not a number")
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
       end
 
 
-      it 'term_idが空では出品できない' do
-        @item.term_id = ''
+      it 'term_idが初期状態では出品できない' do
+        @item.term_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Term is not a number")
+        expect(@item.errors.full_messages).to include("Term must be other than 1")
       end
 
       it 'priceが空では出品できない' do
@@ -72,7 +72,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include ('Price must be greater than or equal to 300')
       end
-      it 'priceが10,000,000より大きい場合出品できない' do
+      it 'priceが¥9,999,999より大きい場合出品できない' do
         @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include ('Price must be less than or equal to 9999999')

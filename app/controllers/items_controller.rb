@@ -1,9 +1,9 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :set_item, only: [:edit, :show, :update, :destroy]
   before_action :move_to_index, only: [:edit]
   # 出品時にログインしていない場合はログイン画面に推移する
-  # edit show updateの実行前にset_itemを実行する
+  # edit show update destroyの実行前にset_itemを実行する
   # 出品者以外がログインしている際はmove_to_indexを実行する
   
   def index

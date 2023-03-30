@@ -1,14 +1,11 @@
 class OrdersController < ApplicationController
   def index
-  end
-
-  def new
     @order_shipment = OrderShipment.new
   end
   
   def create
     @order_shipment = OrderShipment.new(order_params)
-    @donation_shipment.save
+    @order_shipment.save
   end
   
   private

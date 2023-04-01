@@ -54,6 +54,18 @@ RSpec.describe OrderShipment, type: :model do
         @order_shipment.valid?
         expect(@order_shipment.errors.full_messages).to include("Phonenumber can't be blank")
       end
+      it 'priceが空だと保存できないこと' do
+        @order_shipment.price = nil
+        @order_shipment.valid?
+        expect(@order_shipment.errors.full_messages).to include("Price can't be blank")
+      end
+
+      it "tokenが空では登録できないこと" do
+        @order_shipment.token = nil
+        @order_shipment.valid?
+        expect( @order_shipment.errors.full_messages).to include("Token can't be blank")
+      end
+
       it 'phonenumberが全角だと保存できないこと' do
         @order_shipment.phonenumber = '９９９９９９９９９９'
         @order_shipment.valid?

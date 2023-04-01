@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :move_to_item_index, only: [:index]
 
   def index
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:item_id])
     @order_shipment  = OrderShipment.new
   end
   

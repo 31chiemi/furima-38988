@@ -1,6 +1,9 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
+  before_action :move_to_item_index, only: [:index]
+
   def index
-    @item = Item.find(params[:item_id])
+    @item = Item.find(params[:id])
     @order_shipment  = OrderShipment.new
   end
   
@@ -27,7 +30,19 @@ class OrdersController < ApplicationController
     Payjp::Charge.create(
       amount: order_params[:price],  # 商品の値段
       card: order_params[:token],    # カードトークン
-      currency: 'jpy'                 # 通貨の種類（日本円）
+      currency: 'jpy'                # 通貨の種類（日本円）
     )
   end
+  
+  def move_to_item_index
+    @item = Item.find(params[:item_id])
+    if user_signed_in?
+      if current_user.id == @item.user_id
+      redirect_to root_path
+      elsif @item.order != nil && current_user.id != @item.user_id
+      redirect_to root_path
+      end
+    end 
+  end
+
 end

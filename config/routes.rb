@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   resources :items
   #すべてのアクションにルーティング設定
   resources :items do
-    resources :orders, only: [:index, :new, :create ]
+    resources :orders, only: [:index, :create ]
   end
 end

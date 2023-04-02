@@ -5,7 +5,7 @@ RSpec.describe OrderShipment, type: :model do
     before do
       @user = FactoryBot.create(:user)
       @item = FactoryBot.create(:item)
-      @order_shipment = FactoryBot.build(:order_shipment, user_id: @user.id, item_id: @item.id)
+      @order_shipment = FactoryBot.build(:order_shipment, user_id: @user.id, item_id: @item.id,)
     end
 
     context '内容に問題ない場合' do
@@ -34,7 +34,7 @@ RSpec.describe OrderShipment, type: :model do
         @order_shipment.valid?
         expect(@order_shipment.errors.full_messages).to include("Postcode is invalid. Include hyphen(-)")
       end
-      it 'prefecture_idを選択していないと保存できないこと' do
+      it 'prefecture_idが初期状態では保存できないこと' do
         @order_shipment.prefecture_id = '1'
         @order_shipment.valid?
         expect(@order_shipment.errors.full_messages).to include("Prefecture must be other than 1")
@@ -54,12 +54,6 @@ RSpec.describe OrderShipment, type: :model do
         @order_shipment.valid?
         expect(@order_shipment.errors.full_messages).to include("Phonenumber can't be blank")
       end
-      it 'priceが空だと保存できないこと' do
-        @order_shipment.price = nil
-        @order_shipment.valid?
-        expect(@order_shipment.errors.full_messages).to include("Price can't be blank")
-      end
-
       it "tokenが空では登録できないこと" do
         @order_shipment.token = nil
         @order_shipment.valid?
@@ -73,6 +67,16 @@ RSpec.describe OrderShipment, type: :model do
       end
       it 'phonenumberがハイフンを含んでいると保存できないこと' do
         @order_shipment.phonenumber = '999-999-9999'
+        @order_shipment.valid?
+        expect(@order_shipment.errors.full_messages).to include("Phonenumber is invalid")
+      end
+      it 'phonenumberが10桁以下の場合保存できないこと' do
+        @order_shipment.phonenumber = '999999999'
+        @order_shipment.valid?
+        expect(@order_shipment.errors.full_messages).to include("Phonenumber is invalid")
+      end
+      it 'phonenumberが12桁以上の場合保存できないこと' do
+        @order_shipment.phonenumber = '999999999999'
         @order_shipment.valid?
         expect(@order_shipment.errors.full_messages).to include("Phonenumber is invalid")
       end

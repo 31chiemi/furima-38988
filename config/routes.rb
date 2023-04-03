@@ -3,4 +3,7 @@ Rails.application.routes.draw do
   root to: "items#index"
   resources :items
   #すべてのアクションにルーティング設定
+  resources :items do
+    resources :orders, only: [:index, :create ]
+  end
 end

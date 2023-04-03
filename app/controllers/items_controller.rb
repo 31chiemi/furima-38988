@@ -2,9 +2,6 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :set_item, only: [:edit, :show, :update, :destroy]
   before_action :move_to_index, only: [:edit]
-  # 出品時にログインしていない場合はログイン画面に推移する
-  # edit show update destroyの実行前にset_itemを実行する
-  # 出品者以外がログインしている際はmove_to_indexを実行する
   
   def index
     @items = Item.all.order('created_at DESC')
@@ -55,7 +52,9 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    unless current_user.id == set_item.user_id
+    if current_user.id != set_item.user_id
+      redirect_to root_path
+    elsif current_user.id == set_item.user_id && @item.order != nil
       redirect_to root_path
     end
   end

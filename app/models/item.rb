@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to :charge
   belongs_to :prefecture
   belongs_to :term
+  has_one :order
 
   validates :name, presence: true
   validates :content, presence: true
